@@ -3,6 +3,8 @@
 [![Build](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml/badge.svg)](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml)
 [![Nuget](https://img.shields.io/nuget/v/Horarium.svg)](https://www.nuget.org/packages/Horarium)
 
+[English](README.md) | [中文](README_zh.md)
+
 Horarium is an open source job scheduling .NET library with an easy to use API, that can be integrated within applications of any scale - from the smallest stand-alone application to the largest e-commerce system.
 
 Horarium is fully based on an asynchronous work model, it allows you to run hundreds of parallel jobs within a single application instance. It supports jobs execution in distributed systems and uses MongoDB as a synchronization backend.
