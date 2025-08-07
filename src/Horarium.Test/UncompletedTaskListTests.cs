@@ -24,15 +24,15 @@ namespace Horarium.Test
             Assert.Equal(3, _uncompletedTaskList.Count);
 
             tcs1.SetResult(false);
-            await Task.Delay(TimeSpan.FromSeconds(1)); // give a chance to finish continuations
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken); // give a chance to finish continuations
             Assert.Equal(2, _uncompletedTaskList.Count);
 
             tcs2.SetException(new ApplicationException());
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
             Assert.Equal(1, _uncompletedTaskList.Count);
 
-            tcs3.SetCanceled();
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            tcs3.SetCanceled(TestContext.Current.CancellationToken);
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
             Assert.Equal(0, _uncompletedTaskList.Count);
         }
 
@@ -58,11 +58,11 @@ namespace Horarium.Test
             var whenAll = _uncompletedTaskList.WhenAllCompleted(CancellationToken.None);
 
             // Assert
-            await Task.Delay(TimeSpan.FromSeconds(1)); // give a chance to finish any running tasks
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken); // give a chance to finish any running tasks
             Assert.False(whenAll.IsCompleted);
 
             tcs.SetResult(false);
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
             Assert.True(whenAll.IsCompletedSuccessfully);
 
             await whenAll;

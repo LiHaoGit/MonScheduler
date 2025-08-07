@@ -14,9 +14,9 @@ Horarium supports .NET Core/netstandard 2.0 and .NET Framework 4.6.2 and later.
 Support Databases
 
 | Database   | Support                                                                 |
-| ---------- | ----------------------------------------------------------------------- |
+|------------|-------------------------------------------------------------------------|
 | MongoDB    | Yes                                                                     |
-| In Memory  | Yes |
+| In Memory  | Yes                                                                     |
 | PostgreSQL | Not yet [#6](https://github.com/TinkoffCreditSystems/Horarium/issues/6) |
 
 ## Getting started

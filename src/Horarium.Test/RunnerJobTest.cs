@@ -30,13 +30,13 @@ namespace Horarium.Test
             // Act
             runnerJobs.Start();
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
 
             await runnerJobs.Stop(CancellationToken.None);
 
             jobRepositoryMock.Invocations.Clear();
 
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
 
             // Assert
             jobRepositoryMock.Verify(x => x.GetReadyJob(It.IsAny<string>(), It.IsAny<TimeSpan>()), Times.Never);
@@ -66,7 +66,7 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(settings.IntervalStartJob + TimeSpan.FromMilliseconds(1000));
+            await Task.Delay(settings.IntervalStartJob + TimeSpan.FromMilliseconds(1000), TestContext.Current.CancellationToken);
 
             // Assert
             jobRepositoryMock.Verify(r => r.GetReadyJob(It.IsAny<string>(), It.IsAny<TimeSpan>()), Times.AtLeast(2));
@@ -96,7 +96,7 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500));
+            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500), TestContext.Current.CancellationToken);
 
             // Assert
             jobRepositoryMock.Verify(r => r.GetReadyJob(It.IsAny<string>(), It.IsAny<TimeSpan>()), Times.Once);
@@ -128,10 +128,10 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500));
+            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500), TestContext.Current.CancellationToken);
             jobRepositoryMock.Invocations.Clear();
 
-            await Task.Delay(settings.IntervalStartJob + settings.IntervalStartJob.Multiply(settings.JobThrottleSettings.IntervalMultiplier));
+            await Task.Delay(settings.IntervalStartJob + settings.IntervalStartJob.Multiply(settings.JobThrottleSettings.IntervalMultiplier), TestContext.Current.CancellationToken);
             
             // Assert
             jobRepositoryMock.Verify(r => r.GetReadyJob(It.IsAny<string>(), It.IsAny<TimeSpan>()), Times.Once);
@@ -166,16 +166,16 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500));
+            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500), TestContext.Current.CancellationToken);
             jobRepositoryMock.Invocations.Clear();
 
             var interval = settings.IntervalStartJob +
                            settings.IntervalStartJob.Multiply(settings.JobThrottleSettings.IntervalMultiplier);
-            await Task.Delay(interval);
+            await Task.Delay(interval, TestContext.Current.CancellationToken);
             interval += settings.IntervalStartJob.Multiply(settings.JobThrottleSettings.IntervalMultiplier);
-            await Task.Delay(interval);
+            await Task.Delay(interval, TestContext.Current.CancellationToken);
             interval += settings.IntervalStartJob.Multiply(settings.JobThrottleSettings.IntervalMultiplier);
-            await Task.Delay(interval);
+            await Task.Delay(interval, TestContext.Current.CancellationToken);
 
             // Assert
             jobRepositoryMock.Verify(r => r.GetReadyJob(It.IsAny<string>(), It.IsAny<TimeSpan>()), Times.Exactly(3));
@@ -211,10 +211,10 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500));
+            await Task.Delay(settings.IntervalStartJob - TimeSpan.FromMilliseconds(500), TestContext.Current.CancellationToken);
             jobRepositoryMock.Invocations.Clear();
 
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
             // Assert
             jobRepositoryMock.Verify(r => r.GetReadyJob(It.IsAny<string>(), It.IsAny<TimeSpan>()), Times.Exactly(5));
         }
@@ -246,7 +246,7 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
             await runnerJobs.Stop(CancellationToken.None);
 
             // Assert
@@ -277,7 +277,7 @@ namespace Horarium.Test
 
             // Act
             runnerJobs.Start();
-            await Task.Delay(TimeSpan.FromSeconds(1));
+            await Task.Delay(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
             await runnerJobs.Stop(cancellationToken);
 
             // Assert
