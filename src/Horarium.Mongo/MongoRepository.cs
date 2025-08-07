@@ -82,7 +82,7 @@ namespace Horarium.Mongo
             await collection.ReplaceOneAsync(
                 x => x.JobKey == settings.JobKey,
                 RecurrentJobSettingsMongo.Create(settings),
-                new UpdateOptions
+                new ReplaceOptions
                 {
                     IsUpsert = true
                 });

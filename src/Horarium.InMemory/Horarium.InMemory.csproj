@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Horarium\Horarium.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Horarium\Horarium.csproj"/>
+  </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="System.Threading.Channels" Version="4.5.0" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Threading.Channels"/>
+  </ItemGroup>
 
 </Project>

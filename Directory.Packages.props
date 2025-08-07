@@ -1,0 +1,27 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Shared Test Dependencies -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageVersion Include="Moq" Version="4.20.72" />
+    <PackageVersion Include="xunit.v3" Version="2.0.2" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.0" />
+    <PackageVersion Include="coverlet.msbuild" Version="2.4.0" />
+    <PackageVersion Include="MongoDB.Driver" Version="3.3.0" />
+    <PackageVersion Include="SimpleInjector" Version="4.0.12" />
+    <PackageVersion Include="System.Reflection" Version="4.3.0" />
+    <PackageVersion Include="System.Runtime" Version="4.3.0" />
+    <PackageVersion Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageVersion Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+    <PackageVersion Include="System.Threading.Channels" Version="4.5.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="2.2.0" />
+    <PackageVersion Include="Cronos" Version="0.6.3" />
+    <PackageVersion Include="Microsoft.CSharp" Version="4.3.0" />
+    <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageVersion Include="System.ValueTuple" Version="4.3.0" />
+  </ItemGroup>
+</Project>

@@ -11,10 +11,10 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Cronos" Version="0.6.3" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
+    <PackageReference Include="Cronos"  />
+    <PackageReference Include="Microsoft.CSharp"   />
+    <PackageReference Include="Newtonsoft.Json"  />
+    <PackageReference Include="System.ValueTuple"   />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
     <Reference Include="System" />
