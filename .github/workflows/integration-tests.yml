@@ -40,7 +40,7 @@ jobs:
       - name: Run MongoDB integration tests
         run: DataBase=MongoDB dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
         env:
-          MONGO_ADDRESS: mongodb://localhost:27017
+          MONGO_ADDRESS: localhost
 
       - name: Run InMemory integration tests
         run: DataBase=Memory dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
