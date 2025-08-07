@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0</TargetFrameworks>
+        <TargetFramework>net9.0</TargetFramework>
         <Description>Horarium.Mongo</Description>
         <Version>1.0.0$(VersionSuffix)</Version>
         <Title>Horarium.Mongo</Title>

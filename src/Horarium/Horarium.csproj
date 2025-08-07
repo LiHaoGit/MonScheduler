@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
     <Description>Horarium</Description>
     <Version>1.0.0$(VersionSuffix)</Version>
     <Title>Horarium</Title>
