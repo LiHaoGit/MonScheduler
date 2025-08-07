@@ -9,16 +9,12 @@ on:
       - master
 
 jobs:
-  test:
+  # 作业一：专门用于 MongoDB 测试
+  test-mongodb:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false 
-      matrix:
-        test_type: [ 'MongoDB', 'Memory' ]
-
+    # 这个作业包含 services 块来启动 MongoDB 容器
     services:
       mongodb:
-        if: ${{ matrix.test_type == 'MongoDB' }}
         image: mongo:4.2.17
         options: >-
           --health-cmd "echo 'db.runCommand(\"ping\").ok' | mongo --host localhost --quiet --eval 'db.version()'"
@@ -43,11 +39,33 @@ jobs:
       - name: Build project
         run: dotnet build src/Horarium.sln --configuration Release --no-restore
 
-      # 将两个测试步骤合并为一个，并根据矩阵变量设置环境
-      - name: Run ${{ matrix.test_type }} integration tests
+      - name: Run MongoDB integration tests
         run: dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
         env:
-          # 只为 MongoDB 作业设置 MONGO_ADDRESS
-          MONGO_ADDRESS: ${{ matrix.test_type == 'MongoDB' && 'localhost' || '' }}
-          # 根据矩阵变量设置 DataBase
-          DataBase: ${{ matrix.test_type }}
+          MONGO_ADDRESS: localhost
+          DataBase: MongoDB
+
+  # 作业二：专门用于内存测试
+  test-memory:
+    runs-on: ubuntu-latest
+    # 这个作业不包含 services 块
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/Horarium.sln
+
+      - name: Build project
+        run: dotnet build src/Horarium.sln --configuration Release --no-restore
+
+      - name: Run InMemory integration tests
+        run: dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
+        env:
+          DataBase: Memory
