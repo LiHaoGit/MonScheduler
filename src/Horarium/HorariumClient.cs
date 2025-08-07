@@ -23,7 +23,7 @@ namespace Horarium
         public HorariumClient(IJobRepository jobRepository, HorariumSettings settings)
         {
             _settings = settings;
-            _adderJobs = new AdderJobs(jobRepository, settings.JsonSerializerSettings);
+            _adderJobs = new AdderJobs(jobRepository, settings.JsonSerializerOptions);
             _statisticsJobs = new StatisticsJobs(jobRepository);
         }
 

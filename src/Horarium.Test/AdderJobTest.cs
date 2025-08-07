@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Moq;
-using Newtonsoft.Json;
 using Horarium.Handlers;
 using Horarium.Repository;
 using Xunit;
@@ -16,7 +16,7 @@ namespace Horarium.Test
             // Arrange
             var jobRepositoryMock = new Mock<IJobRepository>();
 
-            var jobsAdder = new AdderJobs(jobRepositoryMock.Object, new JsonSerializerSettings());
+            var jobsAdder = new AdderJobs(jobRepositoryMock.Object, new JsonSerializerOptions());
 
             var job = new JobMetadata
             {

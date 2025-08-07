@@ -32,7 +32,7 @@ namespace Horarium
         {
             var executorJob = new ExecutorJob(_jobRepository, _settings);
 
-            _runnerJobs = new RunnerJobs(_jobRepository, _settings, _settings.JsonSerializerSettings, _settings.Logger,
+            _runnerJobs = new RunnerJobs(_jobRepository, _settings, _settings.JsonSerializerOptions, _settings.Logger,
                 executorJob, new UncompletedTaskList());
             _runnerJobs.Start();
         }

@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Moq;
-using Newtonsoft.Json;
 using Horarium.Handlers;
 using Horarium.Interfaces;
 using Horarium.Repository;
@@ -22,7 +22,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 new HorariumSettings(),
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 Mock.Of<IUncompletedTaskList>());
@@ -55,7 +55,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 settings,
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 Mock.Of<IUncompletedTaskList>());
@@ -85,7 +85,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 settings,
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 Mock.Of<IUncompletedTaskList>());
@@ -121,7 +121,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 settings,
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 Mock.Of<IUncompletedTaskList>());
@@ -159,7 +159,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 settings,
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 Mock.Of<IUncompletedTaskList>());
@@ -204,7 +204,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 settings,
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 Mock.Of<IUncompletedTaskList>());
@@ -239,7 +239,7 @@ namespace Horarium.Test
                 {
                     IntervalStartJob = TimeSpan.FromHours(1), // prevent second job from starting
                 },
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 uncompletedTaskList.Object);
@@ -268,7 +268,7 @@ namespace Horarium.Test
 
             var runnerJobs = new RunnerJobs(jobRepositoryMock.Object,
                 settings,
-                new JsonSerializerSettings(),
+                new JsonSerializerOptions(),
                 Mock.Of<IHorariumLogger>(),
                 Mock.Of<IExecutorJob>(),
                 uncompletedTaskList.Object);

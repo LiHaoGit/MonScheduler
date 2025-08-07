@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Text.Json;
 using Horarium.Fallbacks;
-using Newtonsoft.Json;
 
 namespace Horarium.Repository
 {
     public class JobDb
     {
-        public static JobDb CreatedJobDb(JobMetadata jobMetadata, JsonSerializerSettings jsonSerializerSettings)
+        public static JobDb CreatedJobDb(JobMetadata jobMetadata, JsonSerializerOptions jsonSerializerSettings)
         {
             return new JobDb
             {
@@ -70,7 +70,7 @@ namespace Horarium.Repository
         
         public JobDb FallbackJob { get; set; }
 
-        public JobMetadata ToJob(JsonSerializerSettings jsonSerializerSettings)
+        public JobMetadata ToJob(JsonSerializerOptions jsonSerializerSettings)
         {
             return new JobMetadata
             {

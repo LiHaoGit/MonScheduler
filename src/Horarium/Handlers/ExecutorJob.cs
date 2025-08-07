@@ -194,7 +194,7 @@ namespace Horarium.Handlers
         {
             metadata.StartAt = DateTime.UtcNow + metadata.Delay.GetValueOrDefault();
 
-            await _jobRepository.AddJob(JobDb.CreatedJobDb(metadata, _settings.JsonSerializerSettings));
+            await _jobRepository.AddJob(JobDb.CreatedJobDb(metadata, _settings.JsonSerializerOptions));
         }
 
         private Task HandleFallbackStrategy(JobMetadata metadata)
