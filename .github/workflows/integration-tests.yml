@@ -11,8 +11,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false 
+      matrix:
+        test_type: [ 'MongoDB', 'Memory' ]
+
     services:
       mongodb:
+        if: ${{ matrix.test_type == 'MongoDB' }}
         image: mongo:4.2.17
         options: >-
           --health-cmd "echo 'db.runCommand(\"ping\").ok' | mongo --host localhost --quiet --eval 'db.version()'"
@@ -37,11 +43,11 @@ jobs:
       - name: Build project
         run: dotnet build src/Horarium.sln --configuration Release --no-restore
 
-      - name: Run MongoDB integration tests
-        run: DataBase=MongoDB dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
+      # 将两个测试步骤合并为一个，并根据矩阵变量设置环境
+      - name: Run ${{ matrix.test_type }} integration tests
+        run: dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
         env:
-          MONGO_ADDRESS: localhost
-
-      - name: Run InMemory integration tests
-        run: DataBase=Memory dotnet test src/Horarium.IntegrationTest/Horarium.IntegrationTest.csproj -c Release --no-build --no-restore
-
+          # 只为 MongoDB 作业设置 MONGO_ADDRESS
+          MONGO_ADDRESS: ${{ matrix.test_type == 'MongoDB' && 'localhost' || '' }}
+          # 根据矩阵变量设置 DataBase
+          DataBase: ${{ matrix.test_type }}

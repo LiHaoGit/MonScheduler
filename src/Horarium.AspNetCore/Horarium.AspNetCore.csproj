@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Horarium\Horarium.csproj"/>
+    <ProjectReference Include="..\Horarium\Horarium.csproj" />
   </ItemGroup>
 
 </Project>

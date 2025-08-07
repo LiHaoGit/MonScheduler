@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Horarium\Horarium.csproj"/>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Threading.Channels"/>
+    <ProjectReference Include="..\Horarium\Horarium.csproj" />
   </ItemGroup>
 
 </Project>

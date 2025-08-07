@@ -12,10 +12,5 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Cronos"  />
-    <PackageReference Include="Microsoft.CSharp"   />
-    <PackageReference Include="System.ValueTuple"   />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <Reference Include="System" />
   </ItemGroup>
 </Project>
