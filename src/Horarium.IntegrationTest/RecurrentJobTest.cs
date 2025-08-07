@@ -17,7 +17,7 @@ namespace Horarium.IntegrationTest
 
             await horarium.CreateRecurrent<RecurrentJob>(Cron.Secondly()).Schedule();
 
-            await Task.Delay(10000);
+            await Task.Delay(10000, TestContext.Current.CancellationToken);
 
             horarium.Dispose();
 
@@ -35,8 +35,7 @@ namespace Horarium.IntegrationTest
         }
 
         /// <summary>
-        /// Тест проверяет, что при одновременной регистрации одного джоба разными шедулерами первый начнет выполняться, а второй нет,
-        /// т.к. для рекуррентных джобов одновременно может выполняться только один экземпляр
+        /// 该测试验证，如果同一作业由不同的 Scheduler 同时注册，则第一个作业将开始执行，而第二个作业将不会，因为一次只能执行一个实例来执行循环作业
         /// </summary>
         /// <returns></returns>
         [Fact]
@@ -55,7 +54,7 @@ namespace Horarium.IntegrationTest
                 }
             }
 
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            await Task.Delay(TimeSpan.FromSeconds(5), TestContext.Current.CancellationToken);
 
             scheduler.Dispose();
 

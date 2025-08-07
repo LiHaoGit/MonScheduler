@@ -16,8 +16,10 @@ namespace Horarium.IntegrationTest
         {
             var horarium = CreateHorariumServer();
             
+#pragma warning disable CS0618 // Type or member is obsolete
             await horarium.Create<RepeatFailedJob, string>(string.Empty)
-                .AddRepeatStrategy<RepeatFailedJobTestStrategy>()
+#pragma warning restore CS0618 // Type or member is obsolete
+              .AddRepeatStrategy<RepeatFailedJobTestStrategy>()
                 .MaxRepeatCount(5)
                 .Schedule();
 
@@ -25,7 +27,7 @@ namespace Horarium.IntegrationTest
             
             while (!RepeatFailedJob.RepeatIsOk)
             {
-                await Task.Delay(100);
+                await Task.Delay(100, TestContext.Current.CancellationToken);
 
                 if (watch.Elapsed >= TimeSpan.FromSeconds(10))
                 {

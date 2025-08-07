@@ -16,11 +16,13 @@ namespace Horarium.IntegrationTest
 
             for (var i = 0; i < 1000; i++)
             {
-                await firstScheduler.Create<TestJob, int>(i).Schedule();
-                await Task.Delay(10);
+#pragma warning disable CS0618 // Type or member is obsolete
+              await firstScheduler.Create<TestJob, int>(i).Schedule();
+#pragma warning restore CS0618 // Type or member is obsolete
+              await Task.Delay(10, TestContext.Current.CancellationToken);
             }
 
-            await Task.Delay(10000);
+            await Task.Delay(10000, TestContext.Current.CancellationToken);
 
             firstScheduler.Dispose();
             secondScheduler.Dispose();

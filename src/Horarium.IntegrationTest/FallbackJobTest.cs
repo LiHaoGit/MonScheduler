@@ -34,7 +34,7 @@ namespace Horarium.IntegrationTest
                                                                                           int>(3);
                                                                               })));
 
-            await Task.Delay(7000);
+            await Task.Delay(7000, TestContext.Current.CancellationToken);
 
             horarium.Dispose();
 
@@ -57,7 +57,7 @@ namespace Horarium.IntegrationTest
                                                                   .Next<FallbackNextJob, int>(2)
             );
             
-            await Task.Delay(7000);
+            await Task.Delay(7000, TestContext.Current.CancellationToken);
 
             horarium.Dispose();
 
