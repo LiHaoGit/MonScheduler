@@ -25,6 +25,10 @@ jobs:
                 run: |
                     cd src
                     dotnet pack Horarium.AspNetCore/Horarium.AspNetCore.csproj -c Release
+            -   name: pack MonScheduler.InMemory
+                run: |
+                    cd src
+                    dotnet pack Horarium.InMemory/Horarium.InMemory.csproj -c Release
                     
             -   name: Publish to NuGet
                 run: dotnet nuget push **/MonScheduler.*.nupkg --api-key ${{ secrets.NUGET_APIKEY }} --source https://api.nuget.org/v3/index.json                 
