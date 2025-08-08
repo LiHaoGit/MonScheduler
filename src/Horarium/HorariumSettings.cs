@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Text.Json;
 using Horarium.Interfaces;
-using Newtonsoft.Json;
 
 namespace Horarium
 {
@@ -16,7 +16,7 @@ namespace Horarium
 
         public IHorariumLogger Logger { get; set; } = new EmptyLogger();
 
-        public JsonSerializerSettings JsonSerializerSettings { get; set; } = new JsonSerializerSettings();
+        public JsonSerializerOptions JsonSerializerOptions { get; set; } = new JsonSerializerOptions();
 
         public IFailedRepeatStrategy FailedRepeatStrategy { get; set; } = new DefaultRepeatStrategy();
 

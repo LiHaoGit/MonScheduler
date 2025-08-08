@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
 using Horarium.Repository;
 using Xunit;
 
@@ -19,7 +19,7 @@ namespace Horarium.Test
                 JobParam = "test"
             };
 
-            var jobDb = JobDb.CreatedJobDb(job,new JsonSerializerSettings());
+            var jobDb = JobDb.CreatedJobDb(job,new JsonSerializerOptions());
 
             Assert.Equal(jobDb.JobType, _strJobType);
             Assert.Equal(jobDb.JobParamType, _strJobParamType);
@@ -36,7 +36,7 @@ namespace Horarium.Test
                 JobParam = _strJobParam
             };
 
-            var jobDb = job.ToJob(new JsonSerializerSettings());
+            var jobDb = job.ToJob(new JsonSerializerOptions());
 
             Assert.Equal(typeof(TestJob), jobDb.JobType);
             Assert.Equal("test", jobDb.JobParam );

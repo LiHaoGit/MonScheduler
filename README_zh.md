@@ -1,7 +1,8 @@
 # Horarium
 
-[![构建](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml/badge.svg)](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml)
-[![Nuget](https://img.shields.io/nuget/v/Horarium.svg)](https://www.nuget.org/packages/Horarium)
+[![Unit Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml)
+[![Integration Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml)
+[![Nuget](https://img.shields.io/nuget/v/MonScheduler.svg)](https://www.nuget.org/packages/MonScheduler)
 
 [English](README.md) | [中文](README_zh.md)
 
@@ -13,11 +14,11 @@ Horarium 支持 .NET Core/netstandard 2.0 和 .NET Framework 4.6.2 及更高版�
 
 ## 支持的数据库
 
-| 数据库 | 支持 |
-| --- | --- |
-| MongoDB | 是 |
-| 内存 | 是 |
-| PostgreSQL | 尚未支持 [#6](https://github.com/TinkoffCreditSystems/Horarium/issues/6) |
+| 数据库        | 支持                                                                   |
+|------------|----------------------------------------------------------------------|
+| MongoDB    | 是                                                                    |
+| 内存         | 是                                                                    |
+
 
 ## 入门
 
@@ -127,9 +128,6 @@ await horarium
 ```
 
 ## 分布式 Horarium
-
-![分布式方案](DistributedScheme.png)
-
 Horarium 有两种类型的工作器：服务器和客户端。服务器可以运行作业和调度新作业，而客户端只能调度新作业。
 
 Horarium 保证作业将**精确执行一次**。

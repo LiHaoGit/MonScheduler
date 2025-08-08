@@ -1,26 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
-    <PackageReference Include="MongoDB.Driver" Version="2.8.1" />
-    <PackageReference Include="Moq" Version="4.10.1" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="SimpleInjector" Version="4.0.12" />
-    <PackageReference Include="System.Reflection" Version="4.3.0" />
-    <PackageReference Include="System.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation" Version="4.3.0" />
+
+    <PackageReference Include="MongoDB.Driver"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="Moq"/>
+    <PackageReference Include="xunit.v3"/>
+    <PackageReference Include="xunit.runner.visualstudio"/>
+    <PackageReference Include="SimpleInjector"/>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Horarium.InMemory\Horarium.InMemory.csproj" />
-    <ProjectReference Include="..\Horarium.Mongo\Horarium.Mongo.csproj" />
-    <ProjectReference Include="..\Horarium\Horarium.csproj" />
+    <ProjectReference Include="..\Horarium.InMemory\Horarium.InMemory.csproj"/>
+    <ProjectReference Include="..\Horarium.Mongo\Horarium.Mongo.csproj"/>
+    <ProjectReference Include="..\Horarium\Horarium.csproj"/>
   </ItemGroup>
 
 </Project>

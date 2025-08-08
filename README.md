@@ -1,7 +1,8 @@
 # Horarium
 
-[![Build](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml/badge.svg)](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml)
-[![Nuget](https://img.shields.io/nuget/v/Horarium.svg)](https://www.nuget.org/packages/Horarium)
+[![Unit Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml)
+[![Integration Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml)
+[![Nuget](https://img.shields.io/nuget/v/MonScheduler.svg)](https://www.nuget.org/packages/MonScheduler)
 
 [English](README.md) | [中文](README_zh.md)
 
@@ -14,10 +15,9 @@ Horarium supports .NET Core/netstandard 2.0 and .NET Framework 4.6.2 and later.
 Support Databases
 
 | Database   | Support                                                                 |
-| ---------- | ----------------------------------------------------------------------- |
+|------------|-------------------------------------------------------------------------|
 | MongoDB    | Yes                                                                     |
-| In Memory  | Yes |
-| PostgreSQL | Not yet [#6](https://github.com/TinkoffCreditSystems/Horarium/issues/6) |
+| In Memory  | Yes                                                                     |
 
 ## Getting started
 
@@ -127,8 +127,6 @@ await horarium
 ```
 
 ## Distributed Horarium
-
-![Distributed Scheme](DistributedScheme.png)
 
 Horarium has two types of workers: server and client. Server can run jobs and schedule new jobs, while client can only schedule new jobs.
 

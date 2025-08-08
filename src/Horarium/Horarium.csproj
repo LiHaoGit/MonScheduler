@@ -1,22 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <Description>Horarium</Description>
-    <Version>1.0.0$(VersionSuffix)</Version>
-    <Title>Horarium</Title>
-    <Authors>bobreshovr</Authors>
-    <PackageDescription>Horarium is the .Net library to manage background jobs</PackageDescription>
-    <PackageProjectUrl>https://github.com/TinkoffCreditSystems/Horarium</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/TinkoffCreditSystems/Horarium</RepositoryUrl>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Cronos" Version="0.6.3" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="System.ValueTuple" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net46'">
-    <Reference Include="System" />
-  </ItemGroup>
+    <PropertyGroup>
+        <PackageId>MonScheduler</PackageId>
+        <TargetFramework>net9.0</TargetFramework>
+        <Description>MonScheduler</Description>
+        <Version>1.0.0</Version>
+        <Title>MonScheduler</Title>
+        <Authors>bobreshovr</Authors>
+        <PackageDescription>MonScheduler is the .Net library to manage background jobs</PackageDescription>
+        <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
+        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Cronos"/>
+        <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 </Project>

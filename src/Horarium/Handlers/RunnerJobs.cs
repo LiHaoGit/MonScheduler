@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Horarium.Interfaces;
 using Horarium.Repository;
-using Newtonsoft.Json;
 
 namespace Horarium.Handlers
 {
@@ -12,7 +12,7 @@ namespace Horarium.Handlers
         private readonly string _machineName = Environment.MachineName + "_" + Guid.NewGuid();
         private readonly IJobRepository _jobRepository;
         private readonly HorariumSettings _settings;
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly JsonSerializerOptions _jsonSerializerSettings;
         private readonly IHorariumLogger _horariumLogger;
         private readonly IExecutorJob _executorJob;
         private Task _runnerTask;
@@ -25,7 +25,7 @@ namespace Horarium.Handlers
 
         public RunnerJobs(IJobRepository jobRepository,
             HorariumSettings settings,
-            JsonSerializerSettings jsonSerializerSettings,
+            JsonSerializerOptions jsonSerializerSettings,
             IHorariumLogger horariumLogger, IExecutorJob executorJob,
             IUncompletedTaskList uncompletedTaskList)
         {

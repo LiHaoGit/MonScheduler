@@ -33,11 +33,11 @@ namespace Horarium.Handlers
 
         private async Task ExecuteJob(JobMetadata jobMetadata)
         {
-            dynamic jobImplementation = null;
-
-            try
+            using (var scope = _settings.JobScopeFactory.Create())
             {
-                using (var scope = _settings.JobScopeFactory.Create())
+                dynamic jobImplementation = null;
+                
+                try
                 {
                     try
                     {
@@ -52,7 +52,7 @@ namespace Horarium.Handlers
 
                     _settings.Logger.Debug("got jobImplementation -" + jobImplementation.GetType());
                     _settings.Logger.Debug("got JobParam -" + jobMetadata.JobParam.GetType());
-                    await jobImplementation.Execute((dynamic) jobMetadata.JobParam);
+                    await jobImplementation.Execute((dynamic)jobMetadata.JobParam);
 
                     _settings.Logger.Debug("jobMetadata executed");
 
@@ -62,10 +62,10 @@ namespace Horarium.Handlers
 
                     _settings.Logger.Debug("jobMetadata saved success");
                 }
-            }
-            catch (Exception ex)
-            {
-                await HandleFailed(jobMetadata, ex, jobImplementation);
+                catch (Exception ex)
+                {
+                    await HandleFailed(jobMetadata, ex, jobImplementation);
+                }
             }
         }
 
@@ -117,7 +117,7 @@ namespace Horarium.Handlers
                 {
                     try
                     {
-                        await jobImplementation.FailedEvent((dynamic) jobMetadata.JobParam, ex);
+                        await jobImplementation.FailedEvent((dynamic)jobMetadata.JobParam, ex);
                     }
                     catch (Exception failedEventException)
                     {
@@ -143,7 +143,7 @@ namespace Horarium.Handlers
 
             if (jobMetadata.RepeatStrategy != null)
             {
-                strategy = (IFailedRepeatStrategy) Activator.CreateInstance(jobMetadata.RepeatStrategy);
+                strategy = (IFailedRepeatStrategy)Activator.CreateInstance(jobMetadata.RepeatStrategy);
             }
             else
             {
@@ -174,7 +174,7 @@ namespace Horarium.Handlers
             {
                 return;
             }
-            
+
             await ScheduleJob(metadata.NextJob);
             _settings.Logger.Debug("next jobMetadata added");
         }
@@ -185,7 +185,7 @@ namespace Horarium.Handlers
             {
                 return;
             }
-            
+
             await ScheduleJob(metadata.FallbackJob);
             _settings.Logger.Debug("fallback jobMetadata added");
         }
@@ -194,7 +194,7 @@ namespace Horarium.Handlers
         {
             metadata.StartAt = DateTime.UtcNow + metadata.Delay.GetValueOrDefault();
 
-            await _jobRepository.AddJob(JobDb.CreatedJobDb(metadata, _settings.JsonSerializerSettings));
+            await _jobRepository.AddJob(JobDb.CreatedJobDb(metadata, _settings.JsonSerializerOptions));
         }
 
         private Task HandleFallbackStrategy(JobMetadata metadata)

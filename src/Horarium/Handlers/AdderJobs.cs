@@ -1,26 +1,26 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text.Json;
+using System.Threading.Tasks;
 using Horarium.Interfaces;
 using Horarium.Repository;
-using Newtonsoft.Json;
 
 namespace Horarium.Handlers
 {
     public class AdderJobs : IAdderJobs
     {
         private readonly IJobRepository _jobRepository;
-        private readonly JsonSerializerSettings _jsonSerializerSettings;
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
         private readonly IRecurrentJobSettingsAdder _recurrentJobSettingsAdder;
 
-        public AdderJobs(IJobRepository jobRepository, JsonSerializerSettings jsonSerializerSettings)
+        public AdderJobs(IJobRepository jobRepository, JsonSerializerOptions jsonSerializerOptions)
         {
             _jobRepository = jobRepository;
-            _jsonSerializerSettings = jsonSerializerSettings;
-            _recurrentJobSettingsAdder = new RecurrentJobSettingsAdder(_jobRepository, _jsonSerializerSettings);
+            _jsonSerializerOptions = jsonSerializerOptions;
+            _recurrentJobSettingsAdder = new RecurrentJobSettingsAdder(_jobRepository, _jsonSerializerOptions);
         }
 
         public Task AddEnqueueJob(JobMetadata jobMetadata)
         {
-            var job = JobDb.CreatedJobDb(jobMetadata, _jsonSerializerSettings);
+            var job = JobDb.CreatedJobDb(jobMetadata, _jsonSerializerOptions);
 
             return _jobRepository.AddJob(job);
         }
@@ -29,7 +29,7 @@ namespace Horarium.Handlers
         {
             await _recurrentJobSettingsAdder.Add(jobMetadata.Cron, jobMetadata.JobType, jobMetadata.JobKey);
 
-            await _jobRepository.AddRecurrentJob(JobDb.CreatedJobDb(jobMetadata, _jsonSerializerSettings));
+            await _jobRepository.AddRecurrentJob(JobDb.CreatedJobDb(jobMetadata, _jsonSerializerOptions));
         }
     }
 }

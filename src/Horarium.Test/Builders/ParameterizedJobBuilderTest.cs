@@ -4,6 +4,7 @@ using Horarium.Builders.Parameterized;
 using Moq;
 using Horarium.Interfaces;
 using Xunit;
+#pragma warning disable CS0618 // Type or member is obsolete
 
 namespace Horarium.Test.Builders
 {
@@ -126,13 +127,13 @@ namespace Horarium.Test.Builders
 
             // Assert
             Assert.Equal(typeof(DefaultRepeatStrategy), scheduledJob.RepeatStrategy);
-            Assert.Equal(scheduledJob.MaxRepeatCount, maxRepeatCount);
+            Assert.Equal(maxRepeatCount, scheduledJob.MaxRepeatCount);
             _jobsAdderMock.Verify(a => a.AddEnqueueJob(It.IsAny<JobMetadata>()), Times.Once);
             _jobsAdderMock.VerifyNoOtherCalls();
         }
         
         [Fact]
-        public async Task MaxRepeatCountIsZero_ThrowException()
+        public Task MaxRepeatCountIsZero_ThrowException()
         {
             // Arrange
             const int maxRepeatCount = 0;
@@ -141,7 +142,7 @@ namespace Horarium.Test.Builders
             Assert.Throws<ArgumentOutOfRangeException>(() =>
                 new ParameterizedJobBuilder<TestJob, string>(_jobsAdderMock.Object, "HALLO", _globalObsoleteInterval)
                     .MaxRepeatCount(maxRepeatCount));
-
+            return Task.CompletedTask;
         }
     }
 }
