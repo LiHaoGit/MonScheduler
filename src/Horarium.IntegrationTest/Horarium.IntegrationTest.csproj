@@ -12,10 +12,6 @@
     <PackageReference Include="xunit.v3"/>
     <PackageReference Include="xunit.runner.visualstudio"/>
     <PackageReference Include="SimpleInjector"/>
-    <PackageReference Include="System.Reflection"/>
-    <PackageReference Include="System.Runtime"/>
-    <PackageReference Include="System.Runtime.Extensions"/>
-    <PackageReference Include="System.Runtime.InteropServices.RuntimeInformation"/>
   </ItemGroup>
 
   <ItemGroup>
