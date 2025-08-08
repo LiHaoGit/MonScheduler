@@ -1,23 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <PackageId>MonScheduler.Mongo</PackageId>
         <TargetFramework>net9.0</TargetFramework>
-        <Description>Horarium.Mongo</Description>
+        <Description>MonScheduler.Mongo</Description>
         <Version>1.0.0$(VersionSuffix)</Version>
-        <Title>Horarium.Mongo</Title>
+        <Title>MonScheduler.Mongo</Title>
         <Authors>bobreshovr</Authors>
-        <PackageDescription>Horarium.Mongo is the .Net library to support MongoDB in Horarium</PackageDescription>
-        <RepositoryUrl>https://github.com/TinkoffCreditSystems/Horarium</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/TinkoffCreditSystems/Horarium</PackageProjectUrl>
+        <PackageDescription>MonScheduler.Mongo is the .Net library to support MongoDB in Horarium</PackageDescription>
+        <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Horarium\Horarium.csproj" />
+        <ProjectReference Include="..\Horarium\Horarium.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="MongoDB.Driver"   />
+        <PackageReference Include="MongoDB.Driver"/>
     </ItemGroup>
 
 </Project>
