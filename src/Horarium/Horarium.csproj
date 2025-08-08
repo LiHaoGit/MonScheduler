@@ -10,6 +10,8 @@
         <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
         <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Cronos"/>

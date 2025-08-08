@@ -1,6 +1,7 @@
 # Horarium
 
-[![构建](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml/badge.svg)](https://github.com/Tinkoff/Horarium/actions/workflows/build.yml)
+[![Unit Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml)
+[![Integration Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml)
 [![Nuget](https://img.shields.io/nuget/v/Horarium.svg)](https://www.nuget.org/packages/Horarium)
 
 [English](README.md) | [中文](README_zh.md)
@@ -13,11 +14,11 @@ Horarium 支持 .NET Core/netstandard 2.0 和 .NET Framework 4.6.2 及更高版�
 
 ## 支持的数据库
 
-| 数据库 | 支持 |
-| --- | --- |
-| MongoDB | 是 |
-| 内存 | 是 |
-| PostgreSQL | 尚未支持 [#6](https://github.com/TinkoffCreditSystems/Horarium/issues/6) |
+| 数据库        | 支持                                                                   |
+|------------|----------------------------------------------------------------------|
+| MongoDB    | 是                                                                    |
+| 内存         | 是                                                                    |
+
 
 ## 入门
 

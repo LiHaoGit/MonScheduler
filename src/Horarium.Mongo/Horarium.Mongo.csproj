@@ -11,6 +11,8 @@
         <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
         <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
         <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
