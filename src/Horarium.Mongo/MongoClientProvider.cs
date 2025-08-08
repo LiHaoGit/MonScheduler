@@ -14,14 +14,13 @@ namespace Horarium.Mongo
         private bool _initialized;
         private object _lockObject = new object();
 
-        public MongoClientProvider(MongoUrl mongoUrl)
+        public MongoClientProvider(MongoUrl mongoUrl, Action<MongoClientSettings> configAction = null)
         {
             _databaseName = mongoUrl.DatabaseName;
-            _mongoClient = new MongoClient(mongoUrl);
-        }
-        
-        public MongoClientProvider(string mongoConnectionString): this (new MongoUrl(mongoConnectionString))
-        {
+
+            var clientSettings = MongoClientSettings.FromUrl(mongoUrl);
+            configAction?.Invoke(clientSettings);
+            _mongoClient = new MongoClient(clientSettings);
         }
 
         private string GetCollectionName(Type entityType)
@@ -66,7 +65,7 @@ namespace Horarium.Mongo
             collection.Indexes.CreateMany(new[]
             {
                 new CreateIndexModel<JobMongoModel>(
-                    indexKeyBuilder    
+                    indexKeyBuilder
                         .Ascending(x => x.Status)
                         .Ascending(x=>x.StartAt)
                         .Ascending(x=>x.StartedExecuting),
@@ -74,7 +73,7 @@ namespace Horarium.Mongo
                     {
                         Background = true
                     }),
-                
+
                 new CreateIndexModel<JobMongoModel>(
                     indexKeyBuilder
                         .Ascending(x => x.Status)
@@ -83,7 +82,7 @@ namespace Horarium.Mongo
                     {
                         Background = true
                     }),
-                
+
                 new CreateIndexModel<JobMongoModel>(
                     indexKeyBuilder
                         .Ascending(x => x.JobKey),
