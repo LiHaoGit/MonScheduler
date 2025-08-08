@@ -128,9 +128,6 @@ await horarium
 ```
 
 ## 分布式 Horarium
-
-![分布式方案](DistributedScheme.png)
-
 Horarium 有两种类型的工作器：服务器和客户端。服务器可以运行作业和调度新作业，而客户端只能调度新作业。
 
 Horarium 保证作业将**精确执行一次**。

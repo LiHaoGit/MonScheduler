@@ -128,8 +128,6 @@ await horarium
 
 ## Distributed Horarium
 
-![Distributed Scheme](DistributedScheme.png)
-
 Horarium has two types of workers: server and client. Server can run jobs and schedule new jobs, while client can only schedule new jobs.
 
 Horarium guarantees that a job would run **exactly once**
