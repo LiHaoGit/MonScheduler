@@ -2,7 +2,7 @@
 
 [![Unit Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/unit-test.yml)
 [![Integration Tests](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml/badge.svg)](https://github.com/LiHaoGit/MonScheduler/actions/workflows/integration-tests.yml)
-[![Nuget](https://img.shields.io/nuget/v/Horarium.svg)](https://www.nuget.org/packages/Horarium)
+[![Nuget](https://img.shields.io/nuget/v/MonScheduler.svg)](https://www.nuget.org/packages/MonScheduler)
 
 [English](README.md) | [中文](README_zh.md)
 
