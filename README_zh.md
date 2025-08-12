@@ -10,7 +10,7 @@ Horarium 是一个开源的 .NET 作业调度库，它拥有易于使用的 API�
 
 Horarium 完全基于异步工作模型，它允许您在单个应用程序实例中并行运行数百个作业。它支持在分布式系统中执行作业，并使用 MongoDB 作为同步后端。
 
-Horarium 支持 .NET Core/netstandard 2.0 和 .NET Framework 4.6.2 及更高版本。
+Horarium 支持 .NET Core 9 及更高版本。
 
 ## 支持的数据库
 
@@ -47,8 +47,7 @@ public class TestJob : IJob<int>
 ```csharp
 var horarium = new HorariumServer(new InMemoryRepository());
 horarium.Start();
-await horarium.Create<TestJob, int>(666)
-        .Schedule();
+await horarium.Schedule<TestJob, int>(666,conf => conf.WithDelay(TimeSpan.FromSeconds(20)));
 ```
 
 ## 添加到 `Asp.Net core` 应用程序
@@ -87,8 +86,7 @@ public class HomeController : Controller
     [HttpPost]
     public async Task Run(int count)
     {
-            await _horarium.Create<TestJob, int>(count)
-                          .Schedule();
+            await _horarium.Schedule<TestJob, int>(count,conf => conf.WithDelay(TimeSpan.FromSeconds(20)));
     }
 }
 ```

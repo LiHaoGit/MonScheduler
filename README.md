@@ -6,11 +6,11 @@
 
 [English](README.md) | [中文](README_zh.md)
 
-Horarium is an open source job scheduling .NET library with an easy to use API, that can be integrated within applications of any scale - from the smallest stand-alone application to the largest e-commerce system.
+Horarium is an open source job scheduling .NET library with an easy-to-use API, that can be integrated within applications of any scale - from the smallest stand-alone application to the largest e-commerce system.
 
 Horarium is fully based on an asynchronous work model, it allows you to run hundreds of parallel jobs within a single application instance. It supports jobs execution in distributed systems and uses MongoDB as a synchronization backend.
 
-Horarium supports .NET Core/netstandard 2.0 and .NET Framework 4.6.2 and later.
+Horarium supports .NET Core9 and later.
 
 Support Databases
 
@@ -46,8 +46,7 @@ Create ```HorariumServer``` and schedule ```TestJob```
 ```csharp
 var horarium = new HorariumServer(new InMemoryRepository());
 horarium.Start();
-await horarium.Create<TestJob, int>(666)
-        .Schedule();
+await horarium.Schedule<TestJob, int>(666,conf => conf.WithDelay(TimeSpan.FromSeconds(20)));
 ```
 
 ## Add to ```Asp.Net core``` application
