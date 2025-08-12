@@ -38,7 +38,7 @@ namespace Horarium.Interfaces
         /// <param name="configure"></param>
         /// <typeparam name="TJob"></typeparam>
         /// <typeparam name="TJobParam"></typeparam>
-        /// <returns></returns>
+        /// <returns>JobIds</returns>
         Task<List<string>> ScheduleWithId<TJob, TJobParam>(IEnumerable<TJobParam> parameters, Action<IJobSequenceBuilder> configure = null)
             where TJob : IJob<TJobParam>;
 
