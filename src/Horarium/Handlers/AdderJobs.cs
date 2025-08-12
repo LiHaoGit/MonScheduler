@@ -18,18 +18,22 @@ namespace Horarium.Handlers
             _recurrentJobSettingsAdder = new RecurrentJobSettingsAdder(_jobRepository, _jsonSerializerOptions);
         }
 
-        public Task AddEnqueueJob(JobMetadata jobMetadata)
+        public async Task<string> AddEnqueueJob(JobMetadata jobMetadata)
         {
             var job = JobDb.CreatedJobDb(jobMetadata, _jsonSerializerOptions);
 
-            return _jobRepository.AddJob(job);
+            await _jobRepository.AddJob(job);
+
+            return jobMetadata.JobId;
         }
 
-        public async Task AddRecurrentJob(JobMetadata jobMetadata)
+        public async Task<string> AddRecurrentJob(JobMetadata jobMetadata)
         {
             await _recurrentJobSettingsAdder.Add(jobMetadata.Cron, jobMetadata.JobType, jobMetadata.JobKey);
 
             await _jobRepository.AddRecurrentJob(JobDb.CreatedJobDb(jobMetadata, _jsonSerializerOptions));
+
+            return jobMetadata.JobId;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Horarium.Builders
         
         private static void FillWithDefaultIfNecessary(JobMetadata job, TimeSpan globalObsoleteInterval)
         {
-            job.Delay = job.Delay ?? TimeSpan.Zero;
+            job.Delay ??= TimeSpan.Zero;
             job.StartAt = DateTime.UtcNow + job.Delay.Value;
 
             job.ObsoleteInterval = job.ObsoleteInterval == default(TimeSpan)

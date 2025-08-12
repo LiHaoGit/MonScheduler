@@ -16,10 +16,10 @@ namespace Horarium
         private readonly IAdderJobs _adderJobs;
         private readonly IStatisticsJobs _statisticsJobs;
 
-        public HorariumClient(IJobRepository jobRepository):this(jobRepository, new HorariumSettings())
+        public HorariumClient(IJobRepository jobRepository) : this(jobRepository, new HorariumSettings())
         {
         }
-        
+
         public HorariumClient(IJobRepository jobRepository, HorariumSettings settings)
         {
             _settings = settings;
@@ -33,22 +33,25 @@ namespace Horarium
         {
             return new RecurrentJobBuilder(_adderJobs, cron, typeof(TJob), GlobalObsoleteInterval);
         }
-        
-        public async Task Schedule<TJob, TJobParam>(TJobParam param, Action<IJobSequenceBuilder> configure = null) where TJob : IJob<TJobParam>
+
+        public async Task Schedule<TJob, TJobParam>(TJobParam param, Action<IJobSequenceBuilder> configure = null)
+            where TJob : IJob<TJobParam>
+        {
+            await ScheduleWithId<TJob, TJobParam>(param, configure);
+        }
+
+        public async Task<string> ScheduleWithId<TJob, TJobParam>(TJobParam param,
+            Action<IJobSequenceBuilder> configure = null) where TJob : IJob<TJobParam>
         {
             var jobBuilder = new JobSequenceBuilder<TJob, TJobParam>(param, _settings.ObsoleteExecutingJob);
-            
+
             configure?.Invoke(jobBuilder);
 
             var job = jobBuilder.Build();
 
-            await _adderJobs.AddEnqueueJob(job);
-        }
+            var jobId = await _adderJobs.AddEnqueueJob(job);
 
-        [Obsolete("use Schedule method instead")]
-        public IParameterizedJobBuilder Create<TJob, TJobParam>(TJobParam param) where TJob : IJob<TJobParam>
-        {
-            return new ParameterizedJobBuilder<TJob, TJobParam>(_adderJobs, param, _settings.ObsoleteExecutingJob);
+            return jobId;
         }
 
         public Task<Dictionary<JobStatus, int>> GetJobStatistic()

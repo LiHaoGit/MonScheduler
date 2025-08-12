@@ -1,6 +1,8 @@
+using System.Threading.Tasks;
+
 namespace Horarium.Builders.Recurrent
 {
-    public interface IRecurrentJobBuilder : IJobBuilder
+    public interface IRecurrentJobBuilder
     {
         /// <summary>
         /// Add special key(unique identity for recurrent job), default is class name
@@ -8,5 +10,11 @@ namespace Horarium.Builders.Recurrent
         /// <param name="jobKey"></param>
         /// <returns></returns>
         IRecurrentJobBuilder WithKey(string jobKey);
+
+        /// <summary>
+        /// Run current job
+        /// </summary>
+        /// <returns></returns>
+        Task<string> Schedule();
     }
 }

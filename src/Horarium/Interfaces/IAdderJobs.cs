@@ -4,8 +4,8 @@ namespace Horarium.Interfaces
 {
     public interface IAdderJobs
     {
-        Task AddEnqueueJob(JobMetadata jobMetadata);
+        Task<string> AddEnqueueJob(JobMetadata jobMetadata);
 
-        Task AddRecurrentJob(JobMetadata jobMetadata);
+        Task<string> AddRecurrentJob(JobMetadata jobMetadata);
     }
 }
