@@ -9,6 +9,8 @@ namespace Horarium.Repository
         Task<JobDb> GetReadyJob(string machineName, TimeSpan obsoleteTime);
 
         Task AddJob(JobDb job);
+        
+        Task AddJobs(List<JobDb> jobs);
 
         Task FailedJob(string jobId, Exception error);
 

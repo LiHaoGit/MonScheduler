@@ -7,24 +7,24 @@ namespace Horarium.InMemory
 {
     internal class JobsStorage
     {
-        private readonly Dictionary<string, JobDb> _jobs = new Dictionary<string, JobDb>();
+        private readonly Dictionary<string, JobDb> _jobs = new();
 
-        private readonly ReadyJobIndex _readyJobIndex = new ReadyJobIndex();
-        private readonly ExecutingJobIndex _executingJobIndex = new ExecutingJobIndex();
-        private readonly RepeatJobIndex _repeatJobIndex = new RepeatJobIndex();
-        private readonly FailedJobIndex _failedJobIndex = new FailedJobIndex();
+        private readonly ReadyJobIndex _readyJobIndex = new();
+        private readonly ExecutingJobIndex _executingJobIndex = new();
+        private readonly RepeatJobIndex _repeatJobIndex = new();
+        private readonly FailedJobIndex _failedJobIndex = new();
 
         private readonly List<IAddRemoveIndex> _indexes;
 
         public JobsStorage()
         {
-            _indexes = new List<IAddRemoveIndex>
-            {
+            _indexes =
+            [
                 _readyJobIndex,
                 _executingJobIndex,
                 _repeatJobIndex,
                 _failedJobIndex
-            };
+            ];
         }
 
         public void Add(JobDb job)
@@ -32,6 +32,17 @@ namespace Horarium.InMemory
             _jobs.Add(job.JobId, job);
 
             _indexes.ForEach(x => x.Add(job));
+        }
+
+        public void AddRange(IEnumerable<JobDb> jobs)
+        {
+            ArgumentNullException.ThrowIfNull(jobs);
+
+            foreach (var job in jobs)
+            {
+                _jobs.Add(job.JobId, job);
+                _indexes.ForEach(x => x.Add(job));
+            }
         }
 
         public void Remove(string jobId)
@@ -44,7 +55,7 @@ namespace Horarium.InMemory
         public void Remove(JobDb job)
         {
             _jobs.Remove(job.JobId);
-            
+
             _indexes.ForEach(x => x.Remove(job));
         }
 
@@ -52,10 +63,10 @@ namespace Horarium.InMemory
         {
             return new Dictionary<JobStatus, int>
             {
-                {JobStatus.Ready, _readyJobIndex.Count()},
-                {JobStatus.Executing, _executingJobIndex.Count()},
-                {JobStatus.RepeatJob, _repeatJobIndex.Count()},
-                {JobStatus.Failed, _failedJobIndex.Count()}
+                { JobStatus.Ready, _readyJobIndex.Count() },
+                { JobStatus.Executing, _executingJobIndex.Count() },
+                { JobStatus.RepeatJob, _repeatJobIndex.Count() },
+                { JobStatus.Failed, _failedJobIndex.Count() }
             };
         }
 

@@ -17,6 +17,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Horarium\Horarium.csproj"/>
         <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+        <InternalsVisibleTo Include="Horarium.Test" />
     </ItemGroup>
 
 </Project>

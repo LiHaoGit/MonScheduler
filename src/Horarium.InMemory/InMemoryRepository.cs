@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Horarium.Builders;
 using Horarium.Repository;
@@ -9,12 +10,11 @@ namespace Horarium.InMemory
 {
     public class InMemoryRepository : IJobRepository
     {
-        private readonly OperationsProcessor _processor = new OperationsProcessor();
+        private readonly OperationsProcessor _processor = new();
 
-        private readonly JobsStorage _storage = new JobsStorage();
+        private readonly JobsStorage _storage = new();
 
-        private readonly ConcurrentDictionary<string, RecurrentJobSettings> _settingsStorage =
-            new ConcurrentDictionary<string, RecurrentJobSettings>();
+        private readonly ConcurrentDictionary<string, RecurrentJobSettings> _settingsStorage = new();
 
         public Task<JobDb> GetReadyJob(string machineName, TimeSpan obsoleteTime)
         {
@@ -41,6 +41,15 @@ namespace Horarium.InMemory
         public Task AddJob(JobDb job)
         {
             return _processor.Execute(() => _storage.Add(job.Copy()));
+        }
+
+        public Task AddJobs(List<JobDb> jobs)
+        {
+            return _processor.ExecuteBatch(() => 
+            {
+                var jobCopies = jobs.Select(job => job.Copy()).ToList();
+                _storage.AddRange(jobCopies);
+            });
         }
 
         public Task FailedJob(string jobId, Exception error)
@@ -114,7 +123,7 @@ namespace Horarium.InMemory
             {
                 var completedJob = _storage.GetById(jobId);
                 if (completedJob == null) return;
-                
+
                 _storage.Remove(completedJob);
 
                 if (error == null)
@@ -123,7 +132,7 @@ namespace Horarium.InMemory
                     completedJob.StartAt = startAt;
 
                     _storage.Add(completedJob);
-                    
+
                     return;
                 }
 
@@ -137,7 +146,7 @@ namespace Horarium.InMemory
                 newJob.JobId = JobBuilderHelpers.GenerateNewJobId();
                 newJob.Status = JobStatus.Ready;
                 newJob.StartAt = startAt;
-                
+
                 _storage.Add(newJob);
             });
         }
