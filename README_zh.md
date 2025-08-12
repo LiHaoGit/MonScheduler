@@ -25,8 +25,8 @@ Horarium 支持 .NET Core 9 及更高版本。
 添加 nuget-package Horarium
 
 ```bash
-dotnet add package Horarium
-dotnet add package Horarium.Mongo
+dotnet add package MonScheduler
+dotnet add package MonScheduler.Mongo
 ```
 
 添加实现 `IJob<T>` 接口的作业
@@ -258,3 +258,9 @@ new HorariumSettings
     MaxRepeatCount = 1
 });
 ```
+
+## 致谢
+
+**MonScheduler** 的诞生离不开 [Tinkoff/Horarium](https://github.com/Tinkoff/Horarium) 这个出色的项目。
+
+由于原项目已停止更新，我们接过了这根接力棒，在原有代码的基础上进行维护和二次开发，旨在延续其生命力。我们对原作者的开创性工作和无私分享表示最诚挚的感谢，他的工作是 **MonScheduler** 项目的基石。
