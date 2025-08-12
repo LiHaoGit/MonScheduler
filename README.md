@@ -24,8 +24,8 @@ Support Databases
 Add nuget-package Horarium
 
 ```bash
-dotnet add package Horarium
-dotnet add package Horarium.Mongo
+dotnet add package MonScheduler
+dotnet add package MonScheduler.Mongo
 ```
 
 Add job that implements interface ```IJob<T>```
@@ -259,3 +259,9 @@ new HorariumSettings
 });
 ```
 
+
+## Acknowledgements
+
+**MonScheduler** owes its existence to the excellent project [Tinkoff/Horarium](https://github.com/Tinkoff/Horarium).
+
+As the original project is no longer actively maintained, we have taken up the mantle to continue its development and maintenance, including package name changes, aiming to extend its lifespan. We extend our deepest gratitude to the original author for their pioneering work and generous sharing; their efforts form the cornerstone of the **MonScheduler** project.

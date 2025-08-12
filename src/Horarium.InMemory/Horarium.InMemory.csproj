@@ -3,20 +3,15 @@
         <PackageId>MonScheduler.InMemory</PackageId>
         <TargetFramework>net9.0</TargetFramework>
         <Description>MonScheduler.InMemory</Description>
-        <Version>1.0.0</Version>
         <Title>MonScheduler.InMemory</Title>
-        <Authors>bobreshovr</Authors>
-        <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Horarium\Horarium.csproj"/>
         <None Include="..\..\README.md" Pack="true" PackagePath="\"/>
+        <InternalsVisibleTo Include="Horarium.Test" />
     </ItemGroup>
 
 </Project>

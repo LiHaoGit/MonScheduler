@@ -23,14 +23,14 @@ namespace Horarium.Test.Builders
             var scheduledJob = new JobMetadata();
 
             _jobsAdderMock.Setup(a => a.AddRecurrentJob(It.IsAny<JobMetadata>()))
-                .Returns(Task.CompletedTask)
+                .Returns(Task.FromResult(It.IsAny<string>()))
                 .Callback((JobMetadata job) => scheduledJob = job);
 
             // Act
             await builder.Schedule();
 
             // Assert
-            Assert.Equal(scheduledJob.JobKey, typeof(TestReccurrentJob).Name);
+            Assert.Equal(nameof(TestReccurrentJob), scheduledJob.JobKey);
             _jobsAdderMock.Verify(a => a.AddRecurrentJob(It.IsAny<JobMetadata>()), Times.Once);
             _jobsAdderMock.VerifyNoOtherCalls();
         }
@@ -47,7 +47,7 @@ namespace Horarium.Test.Builders
             var expectedStartAt = parsedCron.GetNextOccurrence(DateTime.UtcNow, TimeZoneInfo.Local);
 
             _jobsAdderMock.Setup(a => a.AddRecurrentJob(It.IsAny<JobMetadata>()))
-                .Returns(Task.CompletedTask)
+                .Returns(Task.FromResult(It.IsAny<string>()))
                 .Callback((JobMetadata job) => scheduledJob = job);
 
             // Act

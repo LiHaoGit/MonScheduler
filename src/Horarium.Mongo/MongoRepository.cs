@@ -35,7 +35,7 @@ namespace Horarium.Mongo
                 .Set(x => x.StartedExecuting, DateTime.UtcNow)
                 .Inc(x => x.CountStarted, 1);
 
-            var options = new FindOneAndUpdateOptions<JobMongoModel> {ReturnDocument = ReturnDocument.After};
+            var options = new FindOneAndUpdateOptions<JobMongoModel> { ReturnDocument = ReturnDocument.After };
 
             var result = await collection.FindOneAndUpdateAsync(filter, update, options);
 
@@ -46,6 +46,12 @@ namespace Horarium.Mongo
         {
             var collection = _mongoClientProvider.GetCollection<JobMongoModel>();
             await collection.InsertOneAsync(JobMongoModel.CreateJobMongoModel(job));
+        }
+
+        public async Task AddJobs(List<JobDb> jobs)
+        {
+            var collection = _mongoClientProvider.GetCollection<JobMongoModel>();
+            await collection.InsertManyAsync(jobs.Select(JobMongoModel.CreateJobMongoModel));
         }
 
         public async Task AddRecurrentJob(JobDb job)
@@ -100,7 +106,7 @@ namespace Horarium.Mongo
             var collection = _mongoClientProvider.GetCollection<JobMongoModel>();
 
             JobMongoModel failedJob = null;
-            
+
             if (error != null)
             {
                 failedJob = await collection

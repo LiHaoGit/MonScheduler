@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Horarium.Interfaces;
 using Horarium.Repository;
@@ -18,18 +20,29 @@ namespace Horarium.Handlers
             _recurrentJobSettingsAdder = new RecurrentJobSettingsAdder(_jobRepository, _jsonSerializerOptions);
         }
 
-        public Task AddEnqueueJob(JobMetadata jobMetadata)
+        public async Task<string> AddEnqueueJob(JobMetadata jobMetadata)
         {
             var job = JobDb.CreatedJobDb(jobMetadata, _jsonSerializerOptions);
 
-            return _jobRepository.AddJob(job);
+            await _jobRepository.AddJob(job);
+
+            return jobMetadata.JobId;
         }
 
-        public async Task AddRecurrentJob(JobMetadata jobMetadata)
+        public async Task AddEnqueueJobs(IEnumerable<JobMetadata> jobMetadatas)
+        {
+            var jobs = jobMetadatas.Select(x => JobDb.CreatedJobDb(x, _jsonSerializerOptions)).ToList();
+
+            await _jobRepository.AddJobs(jobs);
+        }
+
+        public async Task<string> AddRecurrentJob(JobMetadata jobMetadata)
         {
             await _recurrentJobSettingsAdder.Add(jobMetadata.Cron, jobMetadata.JobType, jobMetadata.JobKey);
 
             await _jobRepository.AddRecurrentJob(JobDb.CreatedJobDb(jobMetadata, _jsonSerializerOptions));
+
+            return jobMetadata.JobId;
         }
     }
 }

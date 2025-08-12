@@ -4,38 +4,40 @@ using Horarium.Interfaces;
 
 namespace Horarium.Builders.Recurrent
 {
-    internal class RecurrentJobBuilder : JobBuilder, IRecurrentJobBuilder
+    internal class RecurrentJobBuilder : IRecurrentJobBuilder
     {
+        private readonly JobMetadata _job;
         private readonly IAdderJobs _adderJobs;
 
-        public RecurrentJobBuilder(IAdderJobs adderJobs, string cron, Type jobType, TimeSpan obsoleteInterval) 
-            : base(jobType)
+        public RecurrentJobBuilder(IAdderJobs adderJobs, string cron, Type jobType, TimeSpan obsoleteInterval)
         {
+            _job = JobBuilderHelpers.GenerateNewJob(jobType);
+
             _adderJobs = adderJobs;
-            Job.ObsoleteInterval = obsoleteInterval;
-            
-            Job.Cron = cron;
+            _job.ObsoleteInterval = obsoleteInterval;
+
+            _job.Cron = cron;
         }
-        
+
         public IRecurrentJobBuilder WithKey(string jobKey)
         {
-            Job.JobKey = jobKey;
+            _job.JobKey = jobKey;
             return this;
         }
-        
-        public override Task Schedule()
+
+        public async Task<string> Schedule()
         {
-            var nextOccurence = Utils.ParseAndGetNextOccurrence(Job.Cron);
+            var nextOccurence = Utils.ParseAndGetNextOccurrence(_job.Cron);
 
             if (!nextOccurence.HasValue)
             {
-                return Task.CompletedTask;
+                return _job.JobId;
             }
-            
-            Job.StartAt = nextOccurence.Value;
-            Job.JobKey = Job.JobKey ?? Job.JobType.Name;
-            
-            return _adderJobs.AddRecurrentJob(Job);
+
+            _job.StartAt = nextOccurence.Value;
+            _job.JobKey ??= _job.JobType.Name;
+
+            return await _adderJobs.AddRecurrentJob(_job);
         }
     }
 }

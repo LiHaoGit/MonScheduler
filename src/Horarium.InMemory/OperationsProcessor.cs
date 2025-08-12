@@ -40,6 +40,14 @@ namespace Horarium.InMemory
 
             return wrapped.Task;
         }
+
+        public Task ExecuteBatch(Action command)
+        {
+            var wrapped = new CommandWrapper(command);
+            _channel.Writer.TryWrite(wrapped);
+
+            return wrapped.Task;
+        }
         
         private abstract class BaseWrapper
         {
@@ -62,7 +70,14 @@ namespace Horarium.InMemory
             
             public override void Execute()
             {
-                CompletionSource.SetResult(_query()?.Copy());
+                try
+                {
+                    CompletionSource.SetResult(_query()?.Copy());
+                }
+                catch (Exception ex)
+                {
+                    CompletionSource.SetException(ex);
+                }
             }
         }
 
@@ -77,9 +92,15 @@ namespace Horarium.InMemory
         
             public override void Execute()
             {
-                _command();
-            
-                CompletionSource.SetResult(null);
+                try
+                {
+                    _command();
+                    CompletionSource.SetResult(null);
+                }
+                catch (Exception ex)
+                {
+                    CompletionSource.SetException(ex);
+                }
             }
         }
     }
