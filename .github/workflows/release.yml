@@ -9,26 +9,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v4
+                
             -   name: Setup .NET
                 uses: actions/setup-dotnet@v4
                 with:
                     dotnet-version: '9.0.x'
+                    
             -   name: pack MonScheduler
                 run: |
                     cd src
-                    dotnet pack Horarium/Horarium.csproj -c Release
-            -   name: pack MonScheduler.Mongo
-                run: |
-                    cd src
-                    dotnet pack Horarium.Mongo/Horarium.Mongo.csproj -c Release
-            -   name: pack MonScheduler.AspNetCore
-                run: |
-                    cd src
-                    dotnet pack Horarium.AspNetCore/Horarium.AspNetCore.csproj -c Release
-            -   name: pack MonScheduler.InMemory
-                run: |
-                    cd src
-                    dotnet pack Horarium.InMemory/Horarium.InMemory.csproj -c Release
+                    dotnet pack .\Horarium.sln -c Release
                     
             -   name: Publish to NuGet
                 run: dotnet nuget push **/MonScheduler.*.nupkg --api-key ${{ secrets.NUGET_APIKEY }} --source https://api.nuget.org/v3/index.json                 

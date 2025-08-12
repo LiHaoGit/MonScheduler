@@ -4,16 +4,10 @@
         <PackageId>MonScheduler.Mongo</PackageId>
         <TargetFramework>net9.0</TargetFramework>
         <Description>MonScheduler.Mongo</Description>
-        <Version>1.0.0</Version>
         <Title>MonScheduler.Mongo</Title>
-        <Authors>bobreshovr</Authors>
         <PackageDescription>MonScheduler.Mongo is the .Net library to support MongoDB in Horarium</PackageDescription>
-        <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>

@@ -4,16 +4,10 @@
         <PackageId>MonScheduler.AspNetCore</PackageId>
         <TargetFramework>net9.0</TargetFramework>
         <Description>MonScheduler.AspNetCore</Description>
-        <Version>1.0.0</Version>
         <Title>MonScheduler.AspNetCore</Title>
-        <Authors>bobreshovr</Authors>
         <PackageDescription>MonScheduler.AspNetCore is the .Net library to support Asp .Net Core in Horarium</PackageDescription>
-        <RepositoryUrl>https://github.com/LiHaoGit/MonScheduler</RepositoryUrl>
-        <PackageProjectUrl>https://github.com/LiHaoGit/MonScheduler</PackageProjectUrl>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
