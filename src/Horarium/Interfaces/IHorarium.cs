@@ -31,6 +31,17 @@ namespace Horarium.Interfaces
         Task Schedule<TJob, TJobParam>(TJobParam param, Action<IJobSequenceBuilder> configure = null)
             where TJob : IJob<TJobParam>;
 
+        /// <summary>
+        /// Create one time jobs
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <param name="configure"></param>
+        /// <typeparam name="TJob"></typeparam>
+        /// <typeparam name="TJobParam"></typeparam>
+        /// <returns></returns>
+        Task<List<string>> ScheduleWithId<TJob, TJobParam>(IEnumerable<TJobParam> parameters, Action<IJobSequenceBuilder> configure = null)
+            where TJob : IJob<TJobParam>;
+
         Task<string> ScheduleWithId<TJob, TJobParam>(TJobParam param, Action<IJobSequenceBuilder> configure = null)
             where TJob : IJob<TJobParam>;
     }

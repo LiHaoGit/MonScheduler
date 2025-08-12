@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Horarium.Builders.JobSequenceBuilder;
 using Horarium.Builders.Recurrent;
@@ -38,6 +39,29 @@ namespace Horarium
             where TJob : IJob<TJobParam>
         {
             await ScheduleWithId<TJob, TJobParam>(param, configure);
+        }
+
+        public async Task<List<string>> ScheduleWithId<TJob, TJobParam>(IEnumerable<TJobParam> parameters,
+            Action<IJobSequenceBuilder> configure = null) where TJob : IJob<TJobParam>
+        {
+            var jobs = new List<JobMetadata>();
+
+            var jobIds = new List<string>();
+
+            foreach (var param in parameters)
+            {
+                var jobBuilder = new JobSequenceBuilder<TJob, TJobParam>(param, _settings.ObsoleteExecutingJob);
+
+                configure?.Invoke(jobBuilder);
+
+                var jobMetadata = jobBuilder.Build();
+                jobIds.Add(jobMetadata.JobId);
+                jobs.Add(jobMetadata);
+            }
+
+            await _adderJobs.AddEnqueueJobs(jobs);
+
+            return jobIds;
         }
 
         public async Task<string> ScheduleWithId<TJob, TJobParam>(TJobParam param,
