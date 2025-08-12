@@ -16,9 +16,7 @@ namespace Horarium.IntegrationTest
 
             for (var i = 0; i < 1000; i++)
             {
-#pragma warning disable CS0618 // Type or member is obsolete
-              await firstScheduler.Create<TestJob, int>(i).Schedule();
-#pragma warning restore CS0618 // Type or member is obsolete
+              await firstScheduler.Schedule<TestJob, int>(i);  
               await Task.Delay(10, TestContext.Current.CancellationToken);
             }
 

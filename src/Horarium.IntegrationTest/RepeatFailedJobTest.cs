@@ -15,16 +15,13 @@ namespace Horarium.IntegrationTest
         public async Task RepeatFailedJob_UseRepeatStrategy()
         {
             var horarium = CreateHorariumServer();
-            
-#pragma warning disable CS0618 // Type or member is obsolete
-            await horarium.Create<RepeatFailedJob, string>(string.Empty)
-#pragma warning restore CS0618 // Type or member is obsolete
-              .AddRepeatStrategy<RepeatFailedJobTestStrategy>()
-                .MaxRepeatCount(5)
-                .Schedule();
+
+            await horarium.Schedule<RepeatFailedJob, string>(string.Empty,
+                conf => conf.AddRepeatStrategy<RepeatFailedJobTestStrategy>()
+                    .MaxRepeatCount(5));
 
             var watch = Stopwatch.StartNew();
-            
+
             while (!RepeatFailedJob.RepeatIsOk)
             {
                 await Task.Delay(100, TestContext.Current.CancellationToken);
@@ -34,7 +31,7 @@ namespace Horarium.IntegrationTest
                     throw new Exception("Time is over");
                 }
             }
-            
+
             var executingTimes = RepeatFailedJob.ExecutingTime.ToArray();
 
             Assert.Equal(5, executingTimes.Length);
@@ -46,11 +43,10 @@ namespace Horarium.IntegrationTest
                 Assert.Equal(nextJobTime, time, TimeSpan.FromMilliseconds(999));
                 nextJobTime = time.AddSeconds(1);
             }
-            
         }
     }
-    
-    public class RepeatFailedJobTestStrategy:  IFailedRepeatStrategy
+
+    public class RepeatFailedJobTestStrategy : IFailedRepeatStrategy
     {
         public TimeSpan GetNextStartInterval(int countStarted)
         {

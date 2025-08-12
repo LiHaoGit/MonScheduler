@@ -12,9 +12,7 @@ namespace Horarium.IntegrationTest
         {
             var horarium = CreateHorariumServer();
             
-#pragma warning disable CS0618 // Type or member is obsolete
-            await horarium.Create<OneTimeJob, int>(5).Schedule();
-#pragma warning restore CS0618 // Type or member is obsolete
+            await horarium.Schedule<OneTimeJob,int>(5);
             
             await Task.Delay(1000, TestContext.Current.CancellationToken);
 
