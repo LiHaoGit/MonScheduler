@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+        - '!README.md'
+        - '!README_zh.md'
 
 jobs:
   # 作业一：专门用于 MongoDB 测试
