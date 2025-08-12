@@ -45,8 +45,8 @@ namespace Horarium.Handlers
                     }
                     catch (Exception ex)
                     {
-                        //Дополнительное логирование ошибки, когда джоб не может быть создан
-                        _settings.Logger.Error($"Ошибка создания джоба {jobMetadata.JobType}", ex);
+                        //Additional error logging when a job cannot be created
+                        _settings.Logger.Error($"Error creating job {jobMetadata.JobType}", ex);
                         throw;
                     }
 
@@ -82,8 +82,7 @@ namespace Horarium.Handlers
                     }
                     catch (Exception ex)
                     {
-                        //Дополнительное логирование ошибки, когда джоб не может быть создан
-                        _settings.Logger.Error($"Ошибка создания джоба {jobMetadata.JobType}", ex);
+                        _settings.Logger.Error($"Error creating job {jobMetadata.JobType}", ex);
                         throw;
                     }
 
@@ -91,7 +90,7 @@ namespace Horarium.Handlers
 
                     await jobImplementation.Execute();
 
-                    _settings.Logger.Debug("jobMetadata excecuted");
+                    _settings.Logger.Debug("jobMetadata executed");
 
                     await ScheduleNextRecurrentIfPossible(jobMetadata, null);
 
@@ -150,7 +149,7 @@ namespace Horarium.Handlers
                 strategy = _settings.FailedRepeatStrategy;
             }
 
-            return DateTime.UtcNow + strategy.GetNextStartInterval(jobMetadata.CountStarted);
+            return DateTime.UtcNow + strategy!.GetNextStartInterval(jobMetadata.CountStarted);
         }
 
         private async Task ScheduleNextRecurrentIfPossible(JobMetadata metadata, Exception error)

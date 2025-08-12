@@ -87,7 +87,7 @@ namespace Horarium.Test
             });
 
             jobLoggingMock.Verify(x =>
-                x.Error($"Ошибка создания джоба {typeof(TestFailedJob)}", It.IsAny<Exception>()));
+                x.Error($"Error creating job {typeof(TestFailedJob)}", It.IsAny<Exception>()));
         }
 
         [Fact]
@@ -244,7 +244,7 @@ namespace Horarium.Test
 
             // Assert
             jobLoggingMock.Verify(x =>
-                x.Error($"Ошибка создания джоба {typeof(TestReccurrentJob)}", It.IsAny<Exception>()));
+                x.Error($"Error creating job {typeof(TestReccurrentJob)}", It.IsAny<Exception>()));
         }
 
         [Fact]
